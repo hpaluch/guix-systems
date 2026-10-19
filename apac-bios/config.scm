@@ -42,7 +42,7 @@
            %base-services))
   (bootloader (bootloader-configuration
                 (bootloader grub-bootloader)
-                (targets (list "/dev/vda"))
+                (targets (list "/dev/sda"))
                 (keyboard-layout keyboard-layout)))
 
   ;; The list of file systems that get "mounted".  The unique
