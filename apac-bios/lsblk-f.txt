@@ -1,0 +1,8 @@
+NAME   FSTYPE FSVER LABEL     UUID                                 FSAVAIL FSUSE% MOUNTPOINTS
+fd0                                                                               
+sda                                                                               
+├─sda1 btrfs        apac-fed  ad6a6ada-045d-4d21-9490-1d5606476999                
+├─sda2 swap   1     apac-swap da8480c9-c691-44f5-9742-963c5a541127                
+└─sda3 btrfs                  df52d8b2-f535-4ba6-b58c-4a809b07fb5b  136.3G     1% /gnu/store
+                                                                                  /
+sr0                                                                               
