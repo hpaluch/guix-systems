@@ -8,6 +8,7 @@
              (gnu packages)
              (gnu services)
              (guix gexp)
+             (gnu home services)
              (gnu home services shells))
 
 (home-environment
@@ -48,5 +49,7 @@
                           (home-bash-configuration
                            (bash-profile (list (local-file
                                                 ".bash_profile"
-                                                "bash_profile"))))))
+                                                "bash_profile")))))
+                 (service home-files-service-type
+                          `((".tmux.conf" ,(local-file "tmux.conf")))))
            %base-home-services)))
