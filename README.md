@@ -13,6 +13,22 @@
 * [guix-2610/](guix-2610/) - VM with Xfce+lightdm (adapted from Lenovo below), but omitted
   packages at system level (often cause issues with updates)
 
+  There is now experimental `Guix Home` configuration that will manage various dot files (like
+  `~/.bash_profile` and installed packages in your HOME.
+
+  To apply my configuration run:
+  ```shell
+  guix home reconfigure `pwd`/guix-2610/home-config/home-configuration.scm
+  ```
+
+  WARNING! Packages installed with Guix Home must use special commands. For example to
+  list all Guix Home packages use this:
+  ```shell
+  # THIS WILL NOT WORK! => guix package -I
+  # proper command:
+  guix home describe -I
+  ```
+
 * [guix-lenovo-samtb/](guix-lenovo-samtb/) - most comprehensive configuration on Lenovo notebook (UEFI mode),
   on secondary Samsung SATA SSD (SAMTB = Samsung 1TB), includes Xfce/X11.
 
