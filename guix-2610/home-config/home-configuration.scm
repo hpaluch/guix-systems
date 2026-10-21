@@ -47,6 +47,6 @@
    (append (list (service home-bash-service-type
                           (home-bash-configuration
                            (bash-profile (list (local-file
-                                                "/home/ansible/projects/guix-systems/guix-2610/home-config/.bash_profile"
+                                                ".bash_profile"
                                                 "bash_profile"))))))
            %base-home-services)))
