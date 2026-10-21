@@ -10,6 +10,9 @@
   I choose `Edit` then I added `(options "compress=zstd:3")` into
   `(file-system ...)` - so that option was added to generated `/etc/fstab` and activated.
 
+* [guix-2610/](guix-2610/) - VM with Xfce+lightdm (adapted from Lenovo below), but omitted
+  packages at system level (often cause issues with updates)
+
 * [guix-lenovo-samtb/](guix-lenovo-samtb/) - most comprehensive configuration on Lenovo notebook (UEFI mode),
   on secondary Samsung SATA SSD (SAMTB = Samsung 1TB), includes Xfce/X11.
 
