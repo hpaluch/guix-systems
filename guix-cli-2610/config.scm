@@ -43,7 +43,7 @@
                   (supplementary-groups '("wheel" "netdev" "audio" "video")))
                 %base-user-accounts))
   ;; FIXME: I wanted to print IP address, but mingetty does not support that...
-  (issue (string-append %default-issue-copy "\nKernel: \\r \\v on \\m\n" ))
+  (issue (string-append %default-issue-copy "\nKernel: \\r \\v on \\m\n\n" ))
   ;; Below is the list of system services.  To search for available
   ;; services, run 'guix system search KEYWORD' in a terminal.
   (services
@@ -51,18 +51,13 @@
                  ;; To configure OpenSSH, pass an 'openssh-configuration'
                  ;; record as a second argument to 'service' below.
                  (service openssh-service-type)
-                 (service dhcpcd-service-type)
-                 (service console-font-service-type
-                    (map (lambda (tty)
-                        (cons tty %my-console-font))
-                      '("tty1" "tty2" "tty3" "tty4" "tty5" "tty6")))
-	    )
-
-	   (remove (lambda (service)
-            (memq (service-kind service)
-                 (list console-font-service-type
-)))
-                     %base-services)))
+                 (service dhcpcd-service-type))
+	   (modify-services %base-services
+             (console-font-service-type config =>
+                              (map (lambda (tty) (cons tty %my-console-font))
+                                '("tty1" "tty2" "tty3" "tty4" "tty5" "tty6"))))
+   )
+  )
   (bootloader (bootloader-configuration
                 (bootloader grub-bootloader)
                 (targets (list "/dev/vda"))
