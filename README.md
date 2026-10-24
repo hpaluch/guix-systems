@@ -10,6 +10,15 @@
   I choose `Edit` then I added `(options "compress=zstd:3")` into
   `(file-system ...)` - so that option was added to generated `/etc/fstab` and activated.
 
+* [apac-xfce/](apac-xfce/) - installed directly on target ) - old X2 Opteron machine (via AHCI).
+  I wanted to clone it from `apac-bios`,but it lacked `cow-herd` service, required for install.
+
+  Status: `/etc/config.scm` was just cloned from `apac-bios` and updated filesystem UUID. Also
+  mounted `apac-bios` Guix under `/mnt/guix-cli`
+
+  TODO: Add original `apac-bios` Guix to BOOT menu (overwritten BIOS/MBR loader that now loads just
+  `apac-xfce`)
+
 * [guix-2610/](guix-2610/) - VM with Xfce+lightdm (adapted from Lenovo below), but omitted
   packages at system level (often cause issues with updates)
 
