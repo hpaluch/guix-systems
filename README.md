@@ -29,6 +29,10 @@
   guix home describe -I
   ```
 
+* [guix-cli-2610/](guix-cli-2610/) - like `guix-2610` (VM) - but this time with minimal
+  CLI installation). Initial setup, but experiment with custom `/etc/issue` and custom
+  console font (original VGA)
+
 * [guix-lenovo-samtb/](guix-lenovo-samtb/) - most comprehensive configuration on Lenovo notebook (UEFI mode),
   on secondary Samsung SATA SSD (SAMTB = Samsung 1TB), includes Xfce/X11.
 
