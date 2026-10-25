@@ -6,11 +6,16 @@
 ;; to the 'guix system reconfigure' command to effect your
 ;; changes.
 
-
 ;; Indicate which modules to import to access the variables
 ;; used in this configuration.
 (use-modules (gnu))
-(use-service-modules cups desktop lightdm networking ssh virtualization xorg)
+(use-service-modules cups
+                     desktop
+                     lightdm
+                     networking
+                     ssh
+                     virtualization
+                     xorg)
 ;; NOTE: We don't install global system-wise packages (unless necessary) to make System updates faster/more reliable
 (use-package-modules fonts)
 
@@ -26,7 +31,6 @@
 (define %my-console-font
   #~(string-append #+font-gnu-unifont:psf
                    "/share/consolefonts/Uni1-VGA16.psf.gz"))
-
 
 (operating-system
   (locale "en_US.utf8")
@@ -68,17 +72,15 @@
                 (targets (list "/boot/efi"))
                 (keyboard-layout keyboard-layout)))
   (swap-devices (list (swap-space
-                        (target (uuid
-                                 "31a16b2b-5001-4abe-a56b-8a69055abf18")))))
+                        (target (uuid "31a16b2b-5001-4abe-a56b-8a69055abf18")))))
 
   ;; The list of file systems that get "mounted".  The unique
   ;; file system identifiers there ("UUIDs") can be obtained
   ;; by running 'blkid' in a terminal.
   (file-systems (cons* (file-system
                          (mount-point "/")
-                         (device (uuid
-                                  "66522719-65c6-441a-8eca-436cb72483f4"
-                                  'btrfs))
+                         (device (uuid "66522719-65c6-441a-8eca-436cb72483f4"
+                                       'btrfs))
                          (options "compress=zstd:3")
                          (type "btrfs"))
                        (file-system

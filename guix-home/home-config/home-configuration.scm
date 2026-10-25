@@ -45,9 +45,8 @@
   (services
    (append (list (service home-bash-service-type
                           (home-bash-configuration
-                           (bash-profile (list (local-file
-                                                ".bash_profile"
-                                                "bash_profile")))))
+                           (bash-profile (list (local-file ".bash_profile"
+                                                           "bash_profile")))))
                  (service home-files-service-type
                           `((".tmux.conf" ,(local-file "tmux.conf"))
                             (".vimrc" ,(local-file "vimrc")))))
