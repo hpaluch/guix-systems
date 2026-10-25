@@ -1,0 +1,5 @@
+" see https://unix.stackexchange.com/a/571514
+unlet! skip_defaults_vim
+source $VIMRUNTIME/defaults.vim
+set background=dark
+
