@@ -42,6 +42,9 @@
   CLI installation). Initial setup, but experiment with custom `/etc/issue` and custom
   console font (original VGA)
 
+* [guix-home](guix-home) - VM to mimic my main Desktop (currently openSUSE LEAP 16.0) as much
+  as possible.
+
 * [guix-lenovo-samtb/](guix-lenovo-samtb/) - most comprehensive configuration on Lenovo notebook (UEFI mode),
   on secondary Samsung SATA SSD (SAMTB = Samsung 1TB), includes Xfce/X11.
 
