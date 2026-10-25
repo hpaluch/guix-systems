@@ -38,6 +38,12 @@
                                             "btop"
                                             "icecat"
                                             "icedove"
+					    "drawing"
+					    "libreoffice"
+					    "simple-scan"
+					    "virt-manager"
+					    "x-resize"
+					    "xsane"
                                             "strace")))
 
   ;; Below is the list of Home services.  To search for available
