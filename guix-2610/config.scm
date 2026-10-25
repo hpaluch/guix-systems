@@ -16,33 +16,11 @@
                      desktop
                      lightdm
                      networking
-                     sddm
                      ssh
                      virtualization
                      xorg)
-(use-package-modules admin
-                     bootloaders
-                     fonts
-                     chromium
-                     gnuzilla
-                     linux
-                     lsof
-                     mc
-                     music
-                     ncdu
-                     package-management
-                     password-utils
-                     rsync
-                     spice
-                     texinfo
-                     tmux
-                     version-control
-                     video
-                     vim
-                     wine
-                     xdisorg
-                     xfce
-                     xorg)
+;; NOTE: We don't install global system-wise packages (unless necessary) to make System updates faster/more reliable
+(use-package-modules fonts)
 
 ;; services needed only when running as specific Guest VM
 (define %guest-services
