@@ -52,6 +52,11 @@
 (define %my-desktop-services
   (append %guest-services %desktop-services))
 
+;; custom console font, original from gnu/services/base.scm
+(define %my-console-font
+  #~(string-append #+font-gnu-unifont:psf
+                   "/share/consolefonts/Uni1-VGA16.psf.gz"))
+
 (operating-system
   (locale "en_US.utf8")
   (timezone "Europe/Berlin")
@@ -78,27 +83,26 @@
   (services
    (cons* (service xfce-desktop-service-type)
           (service lightdm-service-type)
-
           ;; To configure OpenSSH, pass an 'openssh-configuration'
           ;; record as a second argument to 'service' below.
           (service openssh-service-type)
           (service cups-service-type)
-          (service elogind-service-type
-                   (elogind-configuration (idle-action 'ignore)))
-          ;; (set-xorg-configuration (xorg-configuration (keyboard-layout keyboard-layout)))
-          ;; from gnu/system/examples/plasma.tmpl
-          ;; Note: elogind is NOT actually removed,
-          ;; but already added in above 'service elogind-service-type line!)
-          ;; because adding same service twice is error.
-          (remove (lambda (service)
-                    (memq (service-kind service)
-                          (list gdm-service-type sddm-service-type
-                                elogind-service-type))) %my-desktop-services)))
+          (modify-services %my-desktop-services
+            (console-font-service-type config =>
+                                       (map (lambda (tty)
+                                              (cons tty %my-console-font))
+                                            '("tty1" "tty2" "tty3" "tty4"
+                                              "tty5" "tty6")))
+            (elogind-service-type config =>
+                                  (elogind-configuration (inherit config)
+                                                         (idle-action 'ignore)))
+            (delete gdm-service-type))))
 
   (bootloader (bootloader-configuration
                 (bootloader grub-bootloader)
                 (targets (list "/dev/vda"))
                 (keyboard-layout keyboard-layout)))
+
   (swap-devices (list (swap-space
                         (target (uuid "e4cf17f0-f891-43e8-be1a-8665ebefe93d")))))
 
