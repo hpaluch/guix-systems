@@ -48,3 +48,9 @@
 * [guix-lenovo-samtb/](guix-lenovo-samtb/) - most comprehensive configuration on Lenovo notebook (UEFI mode),
   on secondary Samsung SATA SSD (SAMTB = Samsung 1TB), includes Xfce/X11.
 
+# Guix Home Services
+
+My Guix Home Services ( HOME configuration and package files for specific user).
+
+* [home-configuration/cli](home-configuration/cli) - my general Home configuration for CLI Guix System installations
+
