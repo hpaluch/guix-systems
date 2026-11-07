@@ -11,6 +11,7 @@
 (use-modules (gnu))
 (use-modules (gnu)
              (gnu packages package-management)
+             (gnu packages xorg)
              (srfi srfi-1))
 (use-service-modules cups
                      desktop
@@ -30,10 +31,11 @@
 (define %my-desktop-services
   (append %guest-services %desktop-services))
 
-;; custom console font, original from gnu/services/base.scm
+;; custom console font, grabbed from gnu/services/base.scm and fixed
+;; Note: original package font-gnu-unifont contains only single font: /share/consolefonts/Unifont-APL8x16.psf.gz
+;; so we have to use 'console-setup' package from (gnu packages xorg)
 (define %my-console-font
-  #~(string-append #+font-gnu-unifont:psf
-                   "/share/consolefonts/Uni1-VGA16.psf.gz"))
+  #~(string-append #+console-setup "/share/consolefonts/Uni1-VGA16.psf.gz"))
 
 (operating-system
   (locale "en_US.utf8")
