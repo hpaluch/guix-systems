@@ -10,6 +10,7 @@
 ;; used in this configuration.
 (use-modules (gnu)
              (gnu packages fonts)
+             (gnu packages xorg)
              (srfi srfi-1))
 (use-service-modules cups desktop networking ssh xorg)
 
@@ -22,13 +23,11 @@
       This is the GNU system.  Welcome.
 ")
 
-;; custom console font, grabbed from gnu/services/base.scm
+;; custom console font, grabbed from gnu/services/base.scm and fixed
+;; Note: original package font-gnu-unifont contains only single font: /share/consolefonts/Unifont-APL8x16.psf.gz
+;; so we have to use 'console-setup' package from (gnu packages xorg)
 (define %my-console-font
-  ;; Note: the 'font-gnu-unifont' package cannot be cross-compiled (yet), but
-  ;; its "psf" output is the same whether it's built natively or not, hence
-  ;; 'ungexp-native'.
-  #~(string-append #+font-gnu-unifont:psf
-                   "/share/consolefonts/Uni1-VGA16.psf.gz"))
+  #~(string-append #+console-setup "/share/consolefonts/Uni1-VGA16.psf.gz"))
 
 (operating-system
   (locale "en_US.utf8")
