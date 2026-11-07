@@ -52,7 +52,9 @@
             ;; To configure OpenSSH, pass an 'openssh-configuration'
             ;; record as a second argument to 'service' below.
             (service openssh-service-type)
-            (service dhcpcd-service-type))
+            (service dhcpcd-service-type)
+            ;; Guix Home depends on elogind
+            (service elogind-service-type))
            (modify-services %base-services
              (console-font-service-type config =>
                                         (map (lambda (tty)
