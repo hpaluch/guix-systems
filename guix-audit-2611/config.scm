@@ -9,10 +9,11 @@
 ;; Indicate which modules to import to access the variables
 ;; used in this configuration.
 (use-modules (gnu)
+             (gnu packages admin)
              (gnu packages fonts)
              (gnu packages xorg)
              (srfi srfi-1))
-(use-service-modules cups desktop networking ssh xorg)
+(use-service-modules auditd cups desktop networking ssh xorg)
 
 ;; FIXME: %default-issue is not exported from (gnu system)...
 ;; copied from guix/gnu/system.scm and renamed from %default-issue to %default-issue-copy
@@ -54,13 +55,17 @@
             (service openssh-service-type)
             (service dhcpcd-service-type)
             ;; Guix Home depends on elogind
-            (service elogind-service-type))
+            (service elogind-service-type)
+            (service auditd-service-type))
            (modify-services %base-services
              (console-font-service-type config =>
                                         (map (lambda (tty)
                                                (cons tty %my-console-font))
                                              '("tty1" "tty2" "tty3" "tty4"
                                                "tty5" "tty6"))))))
+  ;; add audit utilities to system
+  (packages (cons* audit %base-packages))
+
   (bootloader (bootloader-configuration
                 (bootloader grub-bootloader)
                 (targets (list "/dev/vda"))
