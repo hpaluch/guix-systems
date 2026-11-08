@@ -13,7 +13,14 @@
              (gnu packages fonts)
              (gnu packages xorg)
              (srfi srfi-1))
-(use-service-modules auditd cups desktop networking ssh xorg)
+(use-service-modules auditd
+                     cups
+                     desktop
+                     networking
+                     ssh
+                     version-control
+                     web
+                     xorg)
 
 ;; FIXME: %default-issue is not exported from (gnu system)...
 ;; copied from guix/gnu/system.scm and renamed from %default-issue to %default-issue-copy
@@ -56,7 +63,24 @@
             (service dhcpcd-service-type)
             ;; Guix Home depends on elogind
             (service elogind-service-type)
-            (service auditd-service-type))
+            (service auditd-service-type)
+
+            ;; serve /srv/git over http
+            ;; 1st part: FastCGI backend
+            (service fcgiwrap-service-type)
+            ;; 2nd part: nginx configuration
+            ;; source: https://guix.gnu.org/manual/1.5.0/en/html_node/Version-Control-Services.html
+            (service nginx-service-type
+                     (nginx-configuration (server-blocks (list (nginx-server-configuration
+                                                                (listen '("80"))
+                                                                (server-name '
+                                                                             ("guix-builder-2611.example.com"))
+                                                                (locations (list
+                                                                            (git-http-nginx-location-configuration
+                                                                             (git-http-configuration
+                                                                              (uri-path
+                                                                               "/")))))))))))
+
            (modify-services %base-services
              (console-font-service-type config =>
                                         (map (lambda (tty)
