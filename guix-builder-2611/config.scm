@@ -42,7 +42,7 @@
 
 (define index-html-content
   (plain-file "index.html" "<h1>Welcome to Guix!</h1>
-		 <p>Go to Git <a href='/git/'>/git/<a/>
+<p>Go to Git <a href='/git/'>/git/</a>
 "))
 
 (define index-html-activation
