@@ -12,6 +12,9 @@
              (gnu packages admin)
              (gnu packages fonts)
              (gnu packages xorg)
+             (guix gexp)
+             (guix modules)
+             (ice-9 match)
              (srfi srfi-1))
 (use-service-modules auditd
                      cups
@@ -36,6 +39,28 @@
 ;; so we have to use 'console-setup' package from (gnu packages xorg)
 (define %my-console-font
   #~(string-append #+console-setup "/share/consolefonts/Uni1-VGA16.psf.gz"))
+
+(define index-html-content
+  (plain-file "index.html" "<h1>Welcome to Guix!</h1>
+		 <p>Go to Git <a href='/git/'>/git/<a/>
+"))
+
+(define index-html-activation
+  (with-imported-modules (source-module-closure '((gnu build activation)))
+                         #~(begin
+                             (use-modules (gnu build activation))
+                             (mkdir-p/perms "/srv/http"
+                                            (getpwnam "root") 493)
+                             (copy-file #$index-html-content
+                                        "/srv/http/index.html"))))
+
+(define index-html-service-type
+  (service-type (name 'index-html)
+                (extensions (list (service-extension activation-service-type
+                                                     (const
+                                                      index-html-activation))))
+                (default-value #t)
+                (description "Generate main index.html for nginx")))
 
 (operating-system
   (locale "en_US.utf8")
@@ -64,7 +89,8 @@
             ;; Guix Home depends on elogind
             (service elogind-service-type)
             (service auditd-service-type)
-
+            ;; create master /srv/http/index.html file for nginx
+            (service index-html-service-type)
             ;; serve /srv/git over http
             ;; 1st part: FastCGI backend
             (service fcgiwrap-service-type)
@@ -79,7 +105,7 @@
                                                                             (git-http-nginx-location-configuration
                                                                              (git-http-configuration
                                                                               (uri-path
-                                                                               "/")))))))))))
+                                                                               "/git")))))))))))
 
            (modify-services %base-services
              (console-font-service-type config =>
