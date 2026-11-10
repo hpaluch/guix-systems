@@ -37,6 +37,13 @@
   # proper command:
   guix home describe -I
   ```
+* [guix-builder-2611/](guix-builder-2611/) - guix Builder - to provide Git Sources
+  and binaries ("substitutions") for Guix clients.
+
+  Status: finished Git source mirror for Guix.
+
+  TODO: Cuirass and Publisher (building and publishing "substitutions")
+
 
 * [guix-cli-2610/](guix-cli-2610/) - like `guix-2610` (VM) - but this time with minimal
   CLI installation). Initial setup, but experiment with custom `/etc/issue` and custom
