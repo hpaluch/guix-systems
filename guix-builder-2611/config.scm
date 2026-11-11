@@ -10,6 +10,7 @@
 ;; used in this configuration.
 (use-modules (gnu)
              (gnu packages admin)
+             (gnu packages databases)
              (gnu packages fonts)
              (gnu packages xorg)
              (guix gexp)
@@ -17,7 +18,9 @@
              (ice-9 match)
              (srfi srfi-1))
 (use-service-modules auditd
+                     cuirass
                      cups
+                     databases
                      desktop
                      networking
                      ssh
@@ -62,6 +65,19 @@
                 (default-value #t)
                 (description "Generate main index.html for nginx")))
 
+;; based on: cuirass source examples
+(define my-cuirass-specs
+  #~(list (specification (name 'guix)
+                         (build 'hello)
+                         ;; from: maintenance/hydra/modules/sysadmin/services.scm
+                         (channels (list (channel
+                                           (inherit %default-guix-channel)
+                                           ;; replace codeberg git repo with my localhost mirror
+                                           (url
+                                            "http://localhost/git/guix.git"))))
+                         (priority 2)
+                         (systems '("x86_64-linux")))))
+
 (operating-system
   (locale "en_US.utf8")
   (timezone "Europe/Berlin")
@@ -105,8 +121,21 @@
                                                                             (git-http-nginx-location-configuration
                                                                              (git-http-configuration
                                                                               (uri-path
-                                                                               "/git")))))))))))
-
+                                                                               "/git"))))))))))
+            ;; from guix/gnu/tests/containers.scm
+            (service postgresql-service-type
+                     (postgresql-configuration (postgresql postgresql)))
+            ;; from https://gofranz.com/blog/a-tiny-guix-build-farm-on-a-thinkpad/
+            (service cuirass-service-type
+                     (cuirass-configuration (specifications my-cuirass-specs)
+                                            (host "0.0.0.0")
+                                            (fallback? #t)))
+            (service guix-publish-service-type
+                     (guix-publish-configuration (host "0.0.0.0")
+                                                 (port 3000)
+                                                 (compression '(("zstd" 19)))
+                                                 (cache "/var/cache/publish")
+                                                 (ttl (* 90 24 3600)))))
            (modify-services %base-services
              (console-font-service-type config =>
                                         (map (lambda (tty)

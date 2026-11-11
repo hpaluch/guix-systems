@@ -40,9 +40,12 @@
 * [guix-builder-2611/](guix-builder-2611/) - guix Builder - to provide Git Sources
   and binaries ("substitutions") for Guix clients.
 
-  Status: finished Git source mirror for Guix.
+  Status: finished Git source mirror for Guix. Early Cuirass and Publisher configuration.
 
-  TODO: Cuirass and Publisher (building and publishing "substitutions")
+  * Cuirass web runs on `http://IP:8081`
+  * Publisher runs on `http://IP:3000`
+
+  FIXME: Cuirass consumes CPU all the time, but somehow producing some errors on Web UI...
 
 
 * [guix-cli-2610/](guix-cli-2610/) - like `guix-2610` (VM) - but this time with minimal
