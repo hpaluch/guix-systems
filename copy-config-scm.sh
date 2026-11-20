@@ -6,6 +6,8 @@ errx () { echo "ERROR: $*" >&2; exit 1; }
 
 cd $( dirname $0 )
 td=`hostname`
+# exception
+[ "$td" != guix-samtb ] || td=guix-lenovo-samtb
 
 [ -d "$td" ] || errx "Directory '$td' does not exist - do you have proper hostname?"
 dst=$td/config.scm

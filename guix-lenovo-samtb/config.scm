@@ -62,6 +62,10 @@
           (service openssh-service-type)
           (service cups-service-type)
           (service tlp-service-type)
+          ;; qemu-user to cross-build RPi image
+          (service qemu-binfmt-service-type
+                   (qemu-binfmt-configuration (platforms (lookup-qemu-platforms
+                                                          "arm" "aarch64"))))
           (modify-services %my-desktop-services
             (elogind-service-type config =>
                                   (elogind-configuration (inherit config)
