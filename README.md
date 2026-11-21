@@ -1,23 +1,30 @@
 # My Guix Systems
 
 
-* [apac-bios/](apac-bios/) - installed as VM to attached Apacer SSD in BIOS mode. Later
-  plugged into old X2 Opteron machine (via AHCI). Thus I had to rename `/dev/vda` to `/dev/sda`
-  in GRUB BIOS configuration.
+* [apac-bios/](apac-bios/) - no longer exists, replaced with [guix-apac-build/](guix-apac-build/)
 
-  How I enabled BTRFS compression at installation: I simply used GUI installer
-  (avoiding selection of any Desktop) and when there was generated `/etc/config.scm`
-  I choose `Edit` then I added `(options "compress=zstd:3")` into
-  `(file-system ...)` - so that option was added to generated `/etc/fstab` and activated.
+  Original comments (for reference):
 
-* [apac-xfce/](apac-xfce/) - installed directly on target ) - old X2 Opteron machine (via AHCI).
-  I wanted to clone it from `apac-bios`,but it lacked `cow-herd` service, required for install.
+  > Installed as VM to attached Apacer SSD in BIOS mode. Later
+  > plugged into old X2 Opteron machine (via AHCI). Thus I had to rename `/dev/vda` to `/dev/sda`
+  > in GRUB BIOS configuration.
+  > 
+  >  How I enabled BTRFS compression at installation: I simply used GUI installer
+  >  (avoiding selection of any Desktop) and when there was generated `/etc/config.scm`
+  >  I choose `Edit` then I added `(options "compress=zstd:3")` into
+  >  `(file-system ...)` - so that option was added to generated `/etc/fstab` and activated.
 
-  Status: `/etc/config.scm` was just cloned from `apac-bios` and updated filesystem UUID. Also
-  mounted `apac-bios` Guix under `/mnt/guix-cli`
+  
 
-  TODO: Add original `apac-bios` Guix to BOOT menu (overwritten BIOS/MBR loader that now loads just
-  `apac-xfce`)
+* [apac-xfce/](apac-xfce/) - no longer exists, replaced with [guix-apac-build/](guix-apac-build/)
+
+  Original comments (for reference):
+
+  > installed directly on target - old X2 Opteron machine (via AHCI).
+  > I wanted to clone it from `apac-bios`,but it lacked `cow-herd` service, required for install.
+  > 
+  > Status: `/etc/config.scm` was just cloned from `apac-bios` and updated filesystem UUID. Also
+  > mounted `apac-bios` Guix under `/mnt/guix-cli`
 
 * [guix-2610/](guix-2610/) - VM with Xfce+lightdm (adapted from Lenovo below), but omitted
   packages at system level (often cause issues with updates)
@@ -39,6 +46,8 @@
   ```
 * [guix-builder-2611/](guix-builder-2611/) - guix Builder - to provide Git Sources
   and binaries ("substitutions") for Guix clients.
+
+  Note: now superseded by [guix-apac-build/](guix-apac-build/).
 
   Status: finished Git source mirror for Guix. Early Cuirass and Publisher configuration.
 

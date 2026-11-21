@@ -15,7 +15,7 @@ dst=$td/config.scm
 src=/etc/config.scm
 [ -r "$src" ] || errx "Unable to read '$src'"
 
-if diff -u $dst $src; then
+if diff --color=auto -u $dst $src; then
 	echo "INFO: Config files $dst and $src are identical - nothing to do"
 else
 	echo -n "Copy new config to Git [y/N]? "

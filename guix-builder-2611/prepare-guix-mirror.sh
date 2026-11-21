@@ -6,6 +6,7 @@ cd ~/mirrors
 x=guix.git
 git clone --mirror https://codeberg.org/guix/$x
 tar cvzf $x.tar.gz $x
+[ -d /srv/git ] || sudo mkdir -p /srv/git
 sudo tar -xv --no-same-owner -f $x.tar.gz -C /srv/git
 sudo touch /srv/git/$x/git-daemon-export-ok
 set +x
